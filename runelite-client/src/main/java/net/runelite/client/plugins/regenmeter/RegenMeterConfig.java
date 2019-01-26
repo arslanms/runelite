@@ -57,4 +57,14 @@ public interface RegenMeterConfig extends Config
 	{
 		return false;
 	}
+
+	@ConfigItem(
+		keyName = "showHpRegen"	,
+		name = "Show a notification if HP is going to regen.",
+		description =  "Notification will pop up when HP is about to regen."
+	)
+	default boolean showHpRegen()
+	{
+		return true;
+	}
 }
