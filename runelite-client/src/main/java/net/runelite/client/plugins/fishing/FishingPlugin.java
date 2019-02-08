@@ -50,6 +50,7 @@ import net.runelite.api.NPC;
 import net.runelite.api.Varbits;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.InteractingChanged;
 import net.runelite.api.events.ItemContainerChanged;
@@ -144,6 +145,16 @@ public class FishingPlugin extends Plugin
 	}
 
 	@Subscribe
+	public void onGameStateChanged(GameStateChanged gameStateChanged)
+	{
+		if (gameStateChanged.getGameState() == GameState.LOADING)
+		{
+			fishingSpots.clear();
+			minnowSpots.clear();
+		}
+	}
+
+	@Subscribe
 	public void onItemContainerChanged(ItemContainerChanged event)
 	{
 		if (event.getItemContainer() != client.getItemContainer(InventoryID.INVENTORY)
@@ -233,6 +244,9 @@ public class FishingPlugin extends Plugin
 				case ItemID.SMALL_FISHING_NET_6209:
 				case ItemID.FISHING_ROD:
 				case ItemID.FLY_FISHING_ROD:
+				case ItemID.PEARL_BARBARIAN_ROD:
+				case ItemID.PEARL_FISHING_ROD:
+				case ItemID.PEARL_FLY_FISHING_ROD:
 				case ItemID.BARBARIAN_ROD:
 				case ItemID.OILY_FISHING_ROD:
 				case ItemID.LOBSTER_POT:
